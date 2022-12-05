@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="JetBrains.DotMemoryUnit" Version="3.2.20220510" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+		<PackageReference Include="Microsoft.Reactive.Testing" Version="5.0.0" />
+		<PackageReference Include="NUnit" Version="3.13.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Xxx.Interview.StockPrices.Client\Xxx.Interview.StockPrices.Client.csproj" />
+		<ProjectReference Include="..\Xxx.Interview.StockPrices.Core\Xxx.Interview.StockPrices.Core.csproj" />
+		<ProjectReference Include="..\Xxx.Interview.StockPrices.Service\Xxx.Interview.StockPrices.Service.csproj" />
+	</ItemGroup>
+
+</Project>

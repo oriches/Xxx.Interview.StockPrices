@@ -1,0 +1,173 @@
+﻿<v:SharedResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:v="clr-namespace:Cibc.StockPrices.Client.Views"
+                            xmlns:vm="clr-namespace:Cibc.StockPrices.Client.ViewModels"
+                            xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
+
+    <DataTemplate DataType="{x:Type vm:StockPriceViewModel}">
+
+        <Grid Margin="8">
+
+            <Grid.Resources>
+                <CollectionViewSource Source="{Binding History}"
+                                      x:Key="Cibc.HistoryItems">
+                    <CollectionViewSource.SortDescriptions>
+                        <cm:SortDescription PropertyName="Timestamp"
+                                            Direction="Descending" />
+                    </CollectionViewSource.SortDescriptions>
+                </CollectionViewSource>
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <DataGrid Grid.Row="0"
+                      Grid.Column="0"
+                      AutoGenerateColumns="False"
+                      CanUserSortColumns="True"
+                      AllowDrop="False"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding Source={StaticResource Cibc.HistoryItems}}"
+                      ScrollViewer.CanContentScroll="True"
+                      EnableColumnVirtualization="True"
+                      EnableRowVirtualization="True"
+                      RenderOptions.EdgeMode="Aliased"
+                      RowStyle="{StaticResource Cibc.NoSelectDataGridRowStyle}">
+
+                <DataGrid.Columns>
+
+                    <DataGridTemplateColumn Width="192"
+                                            Header="Date / Time"
+                                            SortMemberPath="Timestamp"
+                                            SortDirection="Descending">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TimestampAsString}"
+                                           Style="{StaticResource Cibc.CellTextBlockStyle}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="96"
+                                            Header="Price"
+                                            SortMemberPath="Price">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PriceAsString}"
+                                           HorizontalAlignment="Right"
+                                           Style="{StaticResource Cibc.CellTextBlockStyle}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       FontStyle="Italic"
+                       HorizontalAlignment="Left"
+                       Text="Click the Arrow or Press Escape to Close..." />
+
+        </Grid>
+
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ExceptionViewModel}">
+
+        <Grid Margin="0,5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Grid.Row="0"
+                       TextWrapping="Wrap">
+                <Run>An error has happened, it's been caught and the associated message is displayed below. What do you want to do?</Run>
+                <LineBreak />
+                <LineBreak />
+                <Run>You can</Run>
+                <Run FontWeight="Bold">Exit</Run>
+                <Run>, </Run>
+                <Run FontWeight="Bold">Restart</Run>
+                <Run> or </Run>
+                <Run FontWeight="Bold">Continue</Run>
+                <Run>, if you choose to </Run>
+                <Run FontWeight="Bold">Continue</Run>
+                <Run> the app will be in an unstable state and may not perform as expected.</Run>
+            </TextBlock>
+
+            <TextBox Grid.Column="0"
+                     Grid.Row="2"
+                     IsReadOnly="True"
+                     MinHeight="75"
+                     HorizontalAlignment="Stretch"
+                     Text="{Binding Path=Message, Mode=OneTime}" />
+
+            <Grid Grid.Column="0"
+                  Grid.Row="4">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <WrapPanel Grid.Column="0"
+                           Grid.Row="0"
+                           Orientation="Horizontal"
+                           HorizontalAlignment="Left">
+
+                    <Button Content="Copy Error Details"
+                            Margin="0,0,4,4"
+                            Command="{Binding Path=CopyCommand, Mode=OneWay}"
+                            Style="{DynamicResource Cibc.ExceptionButtonStyle}" />
+
+                    <Button Content="Open Log Folder"
+                            Margin="0,0,0,4"
+                            Command="{Binding Path=OpenLogFolderCommand, Mode=OneWay}"
+                            Style="{DynamicResource Cibc.ExceptionButtonStyle}" />
+
+                </WrapPanel>
+
+                <WrapPanel Grid.Column="1"
+                           Grid.Row="0"
+                           Orientation="Horizontal"
+                           HorizontalAlignment="Right">
+
+                    <Button Content="Continue"
+                            Margin="0,0,4,4"
+                            Command="{Binding Path=ContinueCommand, Mode=OneWay}"
+                            Style="{StaticResource Cibc.ExceptionButtonStyle}" />
+
+                    <Button Content="Restart"
+                            Margin="0,0,4,4"
+                            Command="{Binding Path=RestartCommand, Mode=OneWay}"
+                            Style="{StaticResource Cibc.ExceptionButtonStyle}" />
+
+                    <Button Content="Exit"
+                            Margin="0,0,0,4"
+                            Command="{Binding Path=ExitCommand, Mode=OneWay}"
+                            Style="{StaticResource Cibc.ExceptionButtonStyle}" />
+
+                </WrapPanel>
+
+            </Grid>
+
+        </Grid>
+
+    </DataTemplate>
+
+</v:SharedResourceDictionary>

@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.Cibc.StockPrices.iml
+# Datasource local storage ignored files
+/../../../../../../../../:\Work\Interviews\CIBC - May 2021\Cibc.StockPrices\.idea\.idea.Cibc.StockPrices\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

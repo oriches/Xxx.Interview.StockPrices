@@ -1,0 +1,185 @@
+﻿<mah:MetroWindow x:Class="Cibc.StockPrices.Client.Views.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:vm="clr-namespace:Cibc.StockPrices.Client.ViewModels"
+                 xmlns:b1="http://schemas.microsoft.com/xaml/behaviors"
+                 xmlns:b2="clr-namespace:Cibc.StockPrices.Client.Views.Behaviors"
+                 xmlns:c1="clr-namespace:Cibc.StockPrices.Client.Views.Converters"
+                 xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                 mc:Ignorable="d"
+                 MinHeight="600"
+                 MinWidth="1600"
+                 Title="CIBC Coding Test - Stock Provider"
+                 BorderThickness="1"
+                 SaveWindowPosition="True"
+                 ShowSystemMenuOnRightClick="False"
+                 BorderBrush="{StaticResource MahApps.Brushes.Accent}"
+                 d:DataContext="{d:DesignInstance vm:MainViewModel}">
+
+    <mah:MetroWindow.Resources>
+        <CollectionViewSource Source="{Binding Stocks}"
+                              x:Key="Cibc.StockItems">
+            <CollectionViewSource.SortDescriptions>
+                <cm:SortDescription PropertyName="Name"
+                                    Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+
+            <mah:Flyout
+                Header="{Binding SelectedStock.Name, Converter={x:Static c1:SelectedStockNameToHeaderConverter.Instance}}"
+                Position="Right"
+                Width="800"
+                Content="{Binding SelectedStock}"
+                Visibility="{Binding SelectedStock, Converter={x:Static c1:SelectedStockToVisibilityConverter.Instance}}">
+
+                <b1:Interaction.Behaviors>
+                    <b2:CloseFlyoutBehavior SelectedRow="{Binding SelectedStock, Mode=TwoWay}" />
+                </b1:Interaction.Behaviors>
+
+            </mah:Flyout>
+
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Margin="5"
+                Padding="5"
+                BorderThickness="1"
+                BorderBrush="{StaticResource MahApps.Brushes.Accent}">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Stock Provider:" />
+
+                <ComboBox Grid.Row="0"
+                          Grid.Column="2"
+                          DisplayMemberPath="Name"
+                          Width="192"
+                          ItemsSource="{Binding StockProviders}"
+                          SelectedItem="{Binding SelectedProvider, Mode=TwoWay}" />
+
+                <Button Grid.Row="0"
+                        Grid.Column="4"
+                        Content="Clear Providers"
+                        Command="{Binding ClearCommand}"
+                        Style="{StaticResource Cibc.ButtonStyle}" />
+
+                <Button Grid.Row="0"
+                        Grid.Column="6"
+                        Content="Scan for Providers"
+                        Command="{Binding ScanCommand}"
+                        Style="{StaticResource Cibc.ButtonStyle}" />
+
+                <Button Grid.Row="0"
+                        Grid.Column="8"
+                        Content="Open Log Folder"
+                        Command="{Binding OpenLogFolderCommand}"
+                        Style="{StaticResource Cibc.ButtonStyle}" />
+
+                <DataGrid Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="9"
+                          AutoGenerateColumns="False"
+                          CanUserSortColumns="True"
+                          AllowDrop="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding Source={StaticResource Cibc.StockItems}}"
+                          ScrollViewer.CanContentScroll="True"
+                          EnableColumnVirtualization="True"
+                          EnableRowVirtualization="True"
+                          RenderOptions.EdgeMode="Aliased"
+                          CellStyle="{StaticResource Cibc.DataGridCellStyle}">
+
+                    <DataGrid.Columns>
+
+                        <DataGridTemplateColumn Width="192"
+                                                Header="Date / Time"
+                                                SortMemberPath="TimeStamp">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock d:DataContext="{d:DesignInstance vm:StockPriceViewModel}"
+                                               Text="{Binding TimestampAsString}"
+                                               Style="{StaticResource Cibc.CellTextBlockStyle}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="96"
+                                                Header="Name"
+                                                SortMemberPath="Name"
+                                                SortDirection="Ascending">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock d:DataContext="{d:DesignInstance vm:StockPriceViewModel}"
+                                               Text="{Binding Name}"
+                                               Style="{StaticResource Cibc.CellTextBlockStyle}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="96"
+                                                Header="Price"
+                                                SortMemberPath="Price">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border d:DataContext="{d:DesignInstance vm:StockPriceViewModel}"
+                                            Style="{StaticResource Cibc.PriceCellBorderStyle}">
+                                        <TextBlock Text="{Binding PriceAsString}"
+                                                   Style="{StaticResource Cibc.PriceCellTextBlockStyle}" />
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                    <b1:Interaction.Behaviors>
+                        <b2:DataGridDoubleClickRowBehavior SelectedRow="{Binding SelectedStock, Mode=TwoWay}" />
+                    </b1:Interaction.Behaviors>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</mah:MetroWindow>

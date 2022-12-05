@@ -1,0 +1,77 @@
+﻿using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using NLog;
+using NLog.Layouts;
+using NLog.Targets;
+
+namespace Cibc.StockPrices.Client.Services
+{
+    public sealed class ApplicationService : IApplicationService
+    {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        private string _logFolder;
+
+        public string LogFolder
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_logFolder))
+                    return _logFolder;
+
+                _logFolder = GetLogFolder();
+                return _logFolder;
+            }
+        }
+
+        public void CopyToClipboard(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return;
+
+            Clipboard.SetText(text);
+        }
+
+        public void Exit()
+        {
+            Application.Current.Shutdown();
+        }
+
+        public void Restart()
+        {
+            Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+
+        public void OpenFolder(string folder)
+        {
+            Logger.Info($"OpenFolder - Path=[{folder}]");
+
+            if (string.IsNullOrEmpty(folder))
+                return;
+
+            Process.Start("explorer.exe", folder);
+        }
+
+        private static string GetLogFolder()
+        {
+            var logPath = LogManager.Configuration.AllTargets
+                .OfType<FileTarget>()
+                .Select(x => x.FileName as SimpleLayout)
+                .Select(x => x?.Text)
+                .FirstOrDefault();
+
+            if (string.IsNullOrEmpty(logPath))
+                return null;
+
+            if (Directory.Exists(logPath)) return Path.GetDirectoryName(logPath);
+
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var maybePath = Path.Combine(currentDirectory, logPath);
+
+            return Path.GetDirectoryName(maybePath);
+        }
+    }
+}
