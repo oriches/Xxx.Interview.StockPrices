@@ -1,6 +1,6 @@
 # XXX Markets Interview Coding Test - StockPrices
 
-[![Build status](https://ci.appveyor.com/api/projects/status/j2j5dmerila9cpcj?svg=true)](https://ci.appveyor.com/project/oriches/xxx-markets-interview-orderbook)
+[![Build status](https://ci.appveyor.com/api/projects/status/7w8yowlyspi0hbwj?svg=true)](https://ci.appveyor.com/project/oriches/xxx-interview-stockprices)
 
 Built with .NET 7.0.
 
