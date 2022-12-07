@@ -10,10 +10,7 @@ public abstract class BaseViewModel : IViewModel
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void RaisePropertyChanged()
-    {
-        RaisePropertyChanged(string.Empty);
-    }
+    protected virtual void RaisePropertyChanged() => RaisePropertyChanged(string.Empty);
 
     protected virtual void RaisePropertiesChanged(params string[] propertyNames)
     {

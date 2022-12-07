@@ -24,10 +24,7 @@ public sealed class GestureService : DisposableObject, IGestureService
             .DisposeWith(this);
     }
 
-    public void SetBusy()
-    {
-        SetBusyState(true);
-    }
+    public void SetBusy() => SetBusyState(true);
 
     private void SetBusyState(bool busy)
     {

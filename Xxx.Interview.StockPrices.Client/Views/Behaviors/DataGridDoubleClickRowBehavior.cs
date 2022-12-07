@@ -36,15 +36,11 @@ public sealed class DataGridDoubleClickRowBehavior : Behavior<DataGrid>
         AssociatedObject.UnloadingRow -= HandleUnloadingRow;
     }
 
-    private void HandleLoadingRow(object sender, DataGridRowEventArgs e)
-    {
+    private void HandleLoadingRow(object sender, DataGridRowEventArgs e) =>
         e.Row.MouseDoubleClick += HandleMouseDoubleClick;
-    }
 
-    private void HandleUnloadingRow(object sender, DataGridRowEventArgs e)
-    {
+    private void HandleUnloadingRow(object sender, DataGridRowEventArgs e) =>
         e.Row.MouseDoubleClick -= HandleMouseDoubleClick;
-    }
 
     private void HandleMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {

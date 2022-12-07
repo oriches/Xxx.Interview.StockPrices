@@ -61,10 +61,7 @@ public static class Bootstrapper
         _rootScope = builder.Build();
     }
 
-    public static void Stop()
-    {
-        _rootScope.Dispose();
-    }
+    public static void Stop() => _rootScope.Dispose();
 
     public static T Resolve<T>()
     {

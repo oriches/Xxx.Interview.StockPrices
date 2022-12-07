@@ -16,8 +16,5 @@ public abstract class CloseableViewModel : DisposableViewModel, ICloseableViewMo
     public IObservable<bool> Closed => _closed.Where(x => x)
         .DistinctUntilChanged();
 
-    protected void Close()
-    {
-        _closed.OnNext(true);
-    }
+    protected void Close() => _closed.OnNext(true);
 }

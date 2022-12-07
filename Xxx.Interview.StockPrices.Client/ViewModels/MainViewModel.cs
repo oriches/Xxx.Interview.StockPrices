@@ -116,14 +116,12 @@ public sealed class MainViewModel : DisposableViewModel, IMainViewModel
             .DisposeWith(this);
     }
 
-    private IObservable<bool> CanClear()
-    {
-        return this.ObservePropertyChanged(nameof(SelectedProvider))
+    private IObservable<bool> CanClear() =>
+        this.ObservePropertyChanged(nameof(SelectedProvider))
             .AsUnit()
             .StartWith(Unit.Default)
             .Select(x => SelectedProvider != null)
             .DistinctUntilChanged();
-    }
 
     private void ClearProviders()
     {

@@ -9,11 +9,9 @@ public sealed class CryptoRandomStockProvider : BaseRandomStockProvider
 {
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-    public CryptoRandomStockProvider()
-    {
+    public CryptoRandomStockProvider() =>
         Disposable.Create(() => Logger.Info("Shutting down"))
             .DisposeWith(this);
-    }
 
     public override string Name => "Crypto Random Prices";
 

@@ -10,10 +10,7 @@ public static class ObservableExtensions
 {
     public static IGestureService GestureService;
 
-    public static IObservable<Unit> AsUnit<T>(this IObservable<T> observable)
-    {
-        return observable.Select(x => Unit.Default);
-    }
+    public static IObservable<Unit> AsUnit<T>(this IObservable<T> observable) => observable.Select(x => Unit.Default);
 
     public static ReactiveCommand<object> ToCommand(this IObservable<bool> canExecute) =>
         ReactiveCommand.Create(canExecute);

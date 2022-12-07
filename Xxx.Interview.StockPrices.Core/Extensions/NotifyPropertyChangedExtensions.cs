@@ -22,21 +22,17 @@ public static class NotifyPropertyChangedExtensions
     }
 
     public static IObservable<PropertyChangedEventArgs> ObservePropertyChanged(this INotifyPropertyChanged source,
-        string propertyName)
-    {
-        return ObservePropertyChanged(source)
+        string propertyName) =>
+        ObservePropertyChanged(source)
             .Where(x => x.PropertyName == propertyName);
-    }
 
-    public static IObservable<PropertyChangedEventArgs> ObservePropertyChanged(this INotifyPropertyChanged source)
-    {
-        return Observable.Return(source)
+    public static IObservable<PropertyChangedEventArgs> ObservePropertyChanged(this INotifyPropertyChanged source) =>
+        Observable.Return(source)
             .SelectMany(x => Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
                     h => x.PropertyChanged += h,
                     h => x.PropertyChanged -= h),
                 (x, y) => y)
             .Select(x => x.EventArgs);
-    }
 
     private sealed class SourceAndNames<T>
     {

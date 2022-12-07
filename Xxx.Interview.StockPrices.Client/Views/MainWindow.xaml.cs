@@ -29,10 +29,7 @@ public partial class MainWindow : MetroWindow
         Closed += HandleClosed;
     }
 
-    private void HandleClosed(object sender, EventArgs e)
-    {
-        _disposable.Dispose();
-    }
+    private void HandleClosed(object sender, EventArgs e) => _disposable.Dispose();
 
     private IObservable<Unit> ShowDialogAsync(MessageDialog dialog)
     {

@@ -70,28 +70,13 @@ public sealed class ExceptionViewModel : CloseableViewModel, IExceptionViewModel
 
     public string Message => _exception?.Message;
 
-    private void Copy()
-    {
-        _applicationService.CopyToClipboard(_exception.ToString());
-    }
+    private void Copy() => _applicationService.CopyToClipboard(_exception.ToString());
 
-    private void Exit()
-    {
-        _applicationService.Exit();
-    }
+    private void Exit() => _applicationService.Exit();
 
-    private void Restart()
-    {
-        _applicationService.Restart();
-    }
+    private void Restart() => _applicationService.Restart();
 
-    private void Continue()
-    {
-        Close();
-    }
+    private void Continue() => Close();
 
-    private void OpenLogFolder()
-    {
-        _applicationService.OpenFolder(_applicationService.LogFolder);
-    }
+    private void OpenLogFolder() => _applicationService.OpenFolder(_applicationService.LogFolder);
 }

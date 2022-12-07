@@ -31,10 +31,7 @@ public sealed class ApplicationService : IApplicationService
         Clipboard.SetText(text);
     }
 
-    public void Exit()
-    {
-        Application.Current.Shutdown();
-    }
+    public void Exit() => Application.Current.Shutdown();
 
     public void Restart()
     {
