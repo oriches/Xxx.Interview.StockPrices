@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7w8yowlyspi0hbwj?svg=true)](https://ci.appveyor.com/project/oriches/xxx-interview-stockprices)
 
-Built with .NET 7.0.
+Built with ~~.NET 7.0.~~ .Net 8.0.
 
 What is this?
 
