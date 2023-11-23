@@ -1,18 +1,19 @@
 ﻿using System.Reactive.Disposables;
+using System.Security.Cryptography;
 using NLog;
 using Xxx.Interview.StockPrices.Core.Extensions;
 
 namespace Xxx.Interview.StockPrices.Service;
 
-public sealed class RNGCryptoServiceProvider : BaseRandomStockProvider
+public sealed class RandomNumberProvider : BaseRandomStockProvider
 {
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-    private readonly System.Security.Cryptography.RNGCryptoServiceProvider _random;
-
-    public RNGCryptoServiceProvider()
+    private readonly RandomNumberGenerator _random;
+    
+    public RandomNumberProvider()
     {
-        _random = new System.Security.Cryptography.RNGCryptoServiceProvider().DisposeWith(this);
+        _random = RandomNumberGenerator.Create().DisposeWith(this);
 
         Disposable.Create(() => Logger.Info("Shutting down"))
             .DisposeWith(this);

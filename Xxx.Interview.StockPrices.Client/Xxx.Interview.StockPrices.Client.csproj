@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<UseWPF>true</UseWPF>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
@@ -10,11 +10,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Autofac" Version="6.5.0" />
+		<PackageReference Include="Autofac" Version="7.1.0" />
 		<PackageReference Include="ControlzEx" Version="5.0.2" />
-		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
-		<PackageReference Include="NLog" Version="5.1.1" />
-		<PackageReference Include="System.Reactive" Version="5.0.0" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.10" />
+		<PackageReference Include="NLog" Version="5.2.6" />
+		<PackageReference Include="System.Reactive" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
